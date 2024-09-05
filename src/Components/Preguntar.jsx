@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
-export default function Preguntar() {
+import Error from './Error';
+export default function Preguntar({ guardarPresupuesto, guardarRestante }) {
 
     const [ cantidad, guardarCantidad ] = useState(0);
     const [ error, guardarError ] = useState(false);
@@ -18,15 +19,15 @@ export default function Preguntar() {
             guardarError(true);
             return;
         }
+        //Si pasa la validacion
         guardarError(false);
-        //cierra el modal
-
-        //Si el presupuesto se ha definido y ppasa la validacion
+        guardarPresupuesto(cantidad);
+        guardarRestante(cantidad);
     }
   return (
     <Fragment>
       <h2>Ingrese su presupuesto:</h2>
-    { error ? <p className='alerta-error'>No es un presupuesto valido</p> : null }
+        { error ? <Error mensaje='El presupuesto no es valido'/> : null }
       <form
       onSubmit = { agregarPresupuesto }
       >
